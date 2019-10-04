@@ -8,11 +8,28 @@
 
 #import "PUAppDelegate.h"
 
+@import PayUTokenization;
+
 @implementation PUAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [PayUTokenization.sharedInstance setupApiLogin:@"pRRXKOl8ikMmt9u" apiKey:@"4Vj8eK4rloUd272L48hsrarnUA"];
+    
+    [PayUTokenization.sharedInstance createTokenWithLanguage:PayUTokenizationLanguageES
+                                                     payerId:@"1234"
+                                                        name:@"Test test"
+                                               paymentMethod:@"VISA"
+                                                      number:@"4111111111111111"
+                                              expirationDate:NSDate.new
+                                                     success:^(PUCreateTokenResponse * _Nonnull response) {
+        NSLog(@"PUCreateTokenResponse: %@", response);
+    }
+                                                     failure:^(NSError * _Nullable error) {
+        NSLog(@"error: %@", error);
+    }];
     return YES;
 }
 
