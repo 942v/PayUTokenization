@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
   s.author           = { '942v' => 'gsaenz@proatomicdev.com' }
   s.source           = { :git => 'https://github.com/942v/PayUTokenization.git', :tag => s.version.to_s }
   s.ios.deployment_target = '10.0'
-  s.sw
   s.source_files = 'PayUTokenization/Classes/**/*'
   s.dependency 'AFNetworking'
 end
