@@ -7,6 +7,12 @@
 
 #import "PUCreditCardToken.h"
 
+@interface PUCreditCardToken ()
+
+@property (nonatomic, copy, nullable) NSString *paymentMethodString;
+
+@end
+
 @implementation PUCreditCardToken
 
 + (instancetype)newWithData:(NSDictionary *)data {
@@ -50,7 +56,7 @@
         if ([name isKindOfClass:NSString.class]) _name = name;
         if ([payerId isKindOfClass:NSString.class]) _payerId = payerId;
         if ([identificationNumber isKindOfClass:NSString.class]) _identificationNumber = identificationNumber;
-        if ([paymentMethod isKindOfClass:NSString.class]) _paymentMethod = paymentMethod;
+        if ([paymentMethod isKindOfClass:NSString.class]) self.paymentMethodString = paymentMethod;
         if ([number isKindOfClass:NSString.class]) _number = number;
         if ([expirationDate isKindOfClass:NSString.class]) _expirationDate = expirationDate;
         if ([creationDate isKindOfClass:NSString.class]) _creationDate = creationDate;
@@ -58,6 +64,12 @@
         if ([errorDescription isKindOfClass:NSString.class]) _errorDescription = errorDescription;
     }
     return self;
+}
+
+- (void)setPaymentMethodString:(NSString *)paymentMethodString {
+    _paymentMethodString = paymentMethodString;
+    
+    _paymentMethod = [PUCreditCardPaymentMethodType paymentMethodTypeFromString:paymentMethodString];
 }
 
 @end

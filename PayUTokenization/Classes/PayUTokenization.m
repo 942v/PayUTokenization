@@ -65,10 +65,10 @@ static NSString *PayUTokenizationBaseURLString = @"https://sandbox.api.payulatam
     NSAssert(self.apiKey || self.apiLogin, @"You need to provide apikey and apilogin first");
 }
 
-- (void)createTokenWithLanguage:(PayUTokenizationLanguage)language
+- (void)createTokenWithLanguage:(PUTokenizationLanguage)language
                         payerId:(NSString *)payerId
                            name:(NSString *)name
-                  paymentMethod:(NSString *)paymentMethod
+                  paymentMethod:(PUCreditCardType)paymentMethod
                          number:(NSString *)number
                  expirationDate:(NSDate *)expirationDate
                         success:(void (^)(PUCreateTokenResponse * _Nonnull))success
@@ -76,24 +76,33 @@ static NSString *PayUTokenizationBaseURLString = @"https://sandbox.api.payulatam
     
     [self checkForKeys];
     
-    [PUWebServices POST_createTokenWithLanguage:(NSUInteger)language
+    [PUWebServices POST_createTokenWithLanguage:[PULanguage tokenizationLanguageStringFromType:language]
                                        apiLogin:self.apiLogin
                                          apiKey:self.apiKey
                                         payerId:payerId
                                            name:name
-                                  paymentMethod:paymentMethod
+                                  paymentMethod:[PUCreditCardPaymentMethodType paymentMethodStringFromType:paymentMethod]
                                          number:number
-                                 expirationDate:expirationDate
+                           expirationDateString:[PayUTokenization dateStringFromDate:expirationDate]
                                         success:^(PUCreateTokenResponse * _Nonnull response) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) success(response);
         });
-    }
-                                        failure:^(NSString * _Nullable errorDescription, NSError * _Nullable error) {
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                if (failure) failure(error);
-                                            });
+    } failure:^(NSString * _Nullable errorDescription, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (failure) failure(error);
+        });
     }];
+}
+
+#pragma mark - Helpers
+
++ (NSString *)dateStringFromDate:(NSDate *)date {
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"YYYY/MM";
+    dateFormatter.timeZone = nil;
+    return [dateFormatter stringFromDate:date];
 }
 
 @end

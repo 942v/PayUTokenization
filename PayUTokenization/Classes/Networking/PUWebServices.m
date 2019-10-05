@@ -12,19 +12,19 @@
 
 @implementation PUWebServices
 
-+ (void)POST_createTokenWithLanguage:(PUWebServicesLanguage)language
++ (void)POST_createTokenWithLanguage:(NSString *)language
                             apiLogin:(NSString *)apiLogin
                               apiKey:(NSString *)apiKey
                              payerId:(NSString *)payerId
                                 name:(NSString *)name
                        paymentMethod:(NSString *)paymentMethod
                               number:(NSString *)number
-                      expirationDate:(NSDate *)expirationDate
+                expirationDateString:(NSString *)expirationDateString
                              success:(void (^)(PUCreateTokenResponse * _Nonnull))success
                              failure:(void (^ _Nullable)(NSString * _Nullable, NSError * _Nullable))failure {
     
     NSDictionary *parameters = @{
-        @"language":[self languageStringForLanguage:language],
+        @"language":language,
         @"command":@"CREATE_TOKEN",
         @"merchant":[self getMerchantWithApiLogin:apiLogin
                                            apiKey:apiKey],
@@ -32,7 +32,7 @@
                                                           name:name
                                                  paymentMethod:paymentMethod
                                                         number:number
-                                                expirationDate:expirationDate]
+                                          expirationDateString:expirationDateString]
     };
     
     [PUHTTPSessionManager.manager POST:@"service.cgi"
@@ -53,17 +53,6 @@
 
 #pragma mark - Helpers
 
-+ (NSString *)languageStringForLanguage:(PUWebServicesLanguage)language {
-    switch (language) {
-        case PUWebServicesLanguageEN:
-            return @"en";
-        case PUWebServicesLanguageES:
-            return @"es";
-        case PUWebServicesLanguagePT:
-            return @"pt";
-    }
-}
-
 + (NSDictionary *)getMerchantWithApiLogin:(NSString *)apiLogin
                                    apiKey:(NSString *)apiKey {
     return @{
@@ -76,16 +65,13 @@
                                            name:(NSString *)name
                                   paymentMethod:(NSString *)paymentMethod
                                          number:(NSString *)number
-                                 expirationDate:(NSDate *)expirationDate {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateFormat = @"YYYY/MM";
-    dateFormatter.timeZone = nil;
+                           expirationDateString:(NSString *)expirationDateString {
     return @{
         @"payerId":payerId,
         @"name":name,
         @"paymentMethod":paymentMethod,
         @"number":number,
-        @"expirationDate":[dateFormatter stringFromDate:expirationDate]
+        @"expirationDate":expirationDateString
     };
 }
 

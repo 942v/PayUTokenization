@@ -3,13 +3,10 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-typedef enum : NSUInteger {
-    PayUTokenizationLanguageES,
-    PayUTokenizationLanguageEN,
-    PayUTokenizationLanguagePT,
-} PayUTokenizationLanguage;
+#import "PUCreditCardPaymentMethodType.h"
+#import "PULanguage.h"
 
 @class PUCreateTokenResponse;
 
@@ -26,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupApiLogin:(NSString *)apiLogin
                apiKey:(NSString *)apiKey;
 
-- (void)createTokenWithLanguage:(PayUTokenizationLanguage)language
+- (void)createTokenWithLanguage:(PUTokenizationLanguage)language
                         payerId:(NSString *)payerId
                            name:(NSString *)name
-                  paymentMethod:(NSString *)paymentMethod
+                  paymentMethod:(PUCreditCardType)paymentMethod
                          number:(NSString *)number
                  expirationDate:(NSDate *)expirationDate
                         success:(void (^_Nullable)(PUCreateTokenResponse *response))success

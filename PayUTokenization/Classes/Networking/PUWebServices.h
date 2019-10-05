@@ -11,22 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum : NSUInteger {
-    PUWebServicesLanguageES,
-    PUWebServicesLanguageEN,
-    PUWebServicesLanguagePT,
-} PUWebServicesLanguage;
-
 @interface PUWebServices : NSObject
 
-+ (void)POST_createTokenWithLanguage:(PUWebServicesLanguage)language
++ (void)POST_createTokenWithLanguage:(NSString *)language
                             apiLogin:(NSString *)apiLogin
                               apiKey:(NSString *)apiKey
                              payerId:(NSString *)payerId
                                 name:(NSString *)name
                        paymentMethod:(NSString *)paymentMethod
                               number:(NSString *)number
-                      expirationDate:(NSDate *)expirationDate
+                expirationDateString:(NSString *)expirationDateString
                              success:(void (^_Nullable)(PUCreateTokenResponse *response))success
                              failure:(void (^_Nullable)(NSString *_Nullable errorDescription, NSError *_Nullable error))failure;
 

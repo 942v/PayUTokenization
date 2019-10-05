@@ -18,10 +18,10 @@
     
     [PayUTokenization.sharedInstance setupApiLogin:@"pRRXKOl8ikMmt9u" apiKey:@"4Vj8eK4rloUd272L48hsrarnUA"];
     
-    [PayUTokenization.sharedInstance createTokenWithLanguage:PayUTokenizationLanguageES
+    [PayUTokenization.sharedInstance createTokenWithLanguage:PUTokenizationLanguageES
                                                      payerId:@"1234"
                                                         name:@"Test test"
-                                               paymentMethod:@"VISA"
+                                               paymentMethod:PUCreditCardTypeVisa
                                                       number:@"4111111111111111"
                                               expirationDate:NSDate.new
                                                      success:^(PUCreateTokenResponse * _Nonnull response) {
