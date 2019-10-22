@@ -17,7 +17,11 @@
 
 @implementation PayUTokenization
 
+#ifdef DEBUG
 static NSString *PayUTokenizationBaseURLString = @"https://sandbox.api.payulatam.com/payments-api/4.0";
+#else
+static NSString *PayUTokenizationBaseURLString = @"https://api.payulatam.com/payments-api/4.0";
+#endif
 
 #pragma mark - Creating a singleton instance
 

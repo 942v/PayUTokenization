@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PayUTokenization'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'PayUTokenization for iOS is the way to go to tokenize card wiith PayU API'
   s.description      = "PayUTokenization for iOS is the way to go to tokenize card wiith PayU API, this SDK handles the conection and errors that can happen connecting to PayU API"
 
