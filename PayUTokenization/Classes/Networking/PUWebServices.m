@@ -20,6 +20,7 @@
                        paymentMethod:(NSString *)paymentMethod
                               number:(NSString *)number
                 expirationDateString:(NSString *)expirationDateString
+                identificationNumber:(NSString *)identificationNumber
                              success:(void (^)(PUCreateTokenResponse * _Nonnull))success
                              failure:(void (^ _Nullable)(NSString * _Nullable, NSError * _Nullable))failure {
     
@@ -32,7 +33,8 @@
                                                           name:name
                                                  paymentMethod:paymentMethod
                                                         number:number
-                                          expirationDateString:expirationDateString]
+                                          expirationDateString:expirationDateString
+                                          identificationNumber:identificationNumber]
     };
     
     [PUHTTPSessionManager.manager POST:@"service.cgi"
@@ -65,13 +67,15 @@
                                            name:(NSString *)name
                                   paymentMethod:(NSString *)paymentMethod
                                          number:(NSString *)number
-                           expirationDateString:(NSString *)expirationDateString {
+                           expirationDateString:(NSString *)expirationDateString
+                           identificationNumber:(NSString *)identificationNumber {
     return @{
         @"payerId":payerId,
         @"name":name,
         @"paymentMethod":paymentMethod,
         @"number":number,
-        @"expirationDate":expirationDateString
+        @"expirationDate":expirationDateString,
+        @"identificationNumber":identificationNumber
     };
 }
 

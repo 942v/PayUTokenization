@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
                   paymentMethod:(PUCreditCardType)paymentMethod
                          number:(NSString *)number
                  expirationDate:(NSDate *)expirationDate
+           identificationNumber:(NSString *)identificationNumber
                         success:(void (^_Nullable)(PUCreateTokenResponse *response))success
                         failure:(void (^_Nullable)(NSError *_Nullable error))failure;
 

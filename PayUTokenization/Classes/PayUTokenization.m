@@ -71,6 +71,7 @@ static NSString *PayUTokenizationBaseURLString = @"https://sandbox.api.payulatam
                   paymentMethod:(PUCreditCardType)paymentMethod
                          number:(NSString *)number
                  expirationDate:(NSDate *)expirationDate
+           identificationNumber:(NSString *)identificationNumber
                         success:(void (^)(PUCreateTokenResponse * _Nonnull))success
                         failure:(void (^)(NSError * _Nullable))failure {
     
@@ -84,6 +85,7 @@ static NSString *PayUTokenizationBaseURLString = @"https://sandbox.api.payulatam
                                   paymentMethod:[PUCreditCardPaymentMethodType paymentMethodStringFromType:paymentMethod]
                                          number:number
                            expirationDateString:[PayUTokenization dateStringFromDate:expirationDate]
+                           identificationNumber:identificationNumber
                                         success:^(PUCreateTokenResponse * _Nonnull response) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) success(response);
